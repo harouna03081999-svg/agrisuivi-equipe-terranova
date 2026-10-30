@@ -1,4 +1,13 @@
 // MEMBRE 4 — Données : lire et écrire les fichiers JSON de façon asynchrone.
+export async function lireJson(chemin) {
+  try {
+    
+    const texte = await readFile(chemin, 'utf8');
+    return JSON.parse(texte);
+  } catch (erreur) {
+    throw new Error(`Impossible de lire ${chemin}`, { cause: erreur });
+  }
+}
 // Fiche : fiches/4-donnees.md · Vérifier : npm run test:donnees
 // À faire EN PREMIER : sans lireJson et chargerDonnees, l'application ne peut rien afficher.
 import { readFile, writeFile } from "node:fs/promises";
@@ -28,3 +37,5 @@ export function creerReleve(parcelle, humiditeTexte, temperatureTexte, date) {
 export async function ajouterReleve(chemin, releve) {
   throw new Error("TODO Membre 4 : coder ajouterReleve dans src/donnees.js");
 }
+
+
