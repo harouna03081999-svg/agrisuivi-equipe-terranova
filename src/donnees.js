@@ -12,7 +12,15 @@ export async function lireJson(chemin) {
 // À faire EN PREMIER : sans lireJson et chargerDonnees, l'application ne peut rien afficher.
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-
+export async function chargerDonnees(dossier) {
+  const [parcelles, cultures, releves, recoltes] = await Promise.all([
+    lireJson(join(dossier, "parcelles.json")),
+    lireJson(join(dossier, "cultures.json")),
+    lireJson(join(dossier, "releves.json")),
+    lireJson(join(dossier, "recoltes.json")),
+  ]);
+  return { parcelles, cultures, releves, recoltes };
+}
 // Lit un fichier JSON et renvoie son contenu converti en valeur JavaScript.
 // En cas de problème, lance une erreur claire qui garde l'erreur d'origine comme cause.
 export async function lireJson(chemin) {
