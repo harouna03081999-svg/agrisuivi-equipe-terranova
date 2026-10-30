@@ -16,3 +16,8 @@ export function rendement(kg, surface) {
   }
   return Math.round(kg / surface);
 }
+
+// Renvoie le revenu estimé en FCFA.
+export function revenu(kg, prixKg) {
+  return kg * prixKg;
+}
