@@ -22,7 +22,7 @@ export function revenu(kg, prixKg) {
   return kg * prixKg;
 }
 
-// Renvoie une ligne de bilan par parcelle, dans le même ordre que parcelles.
+// Renvoie d'une ligne de bilan par parcelle, dans le même ordre que parcelles.
 // Chaque ligne : { id, producteur, culture, kg, rendement, revenu }
 export function bilanRecoltes(parcelles, recoltes, cultures) {
   return parcelles.map((parcelle) => {
@@ -41,3 +41,8 @@ export function bilanRecoltes(parcelles, recoltes, cultures) {
   });
 }
 
+// Renvoie une COPIE du bilan, triée du plus grand revenu au plus petit.
+// Le tableau reçu ne doit pas changer d'ordre.
+export function classerParRevenu(bilan) {
+  return [...bilan].sort((a, b) => b.revenu - a.revenu);
+}
