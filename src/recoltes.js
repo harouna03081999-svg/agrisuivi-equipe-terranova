@@ -7,3 +7,12 @@ export function totalRecolte(recoltes, idParcelle) {
     .filter((recolte) => recolte.parcelle === idParcelle)
     .reduce((somme, recolte) => somme + recolte.kg, 0);
 }
+
+// Renvoie le rendement en kg par hectare, arrondi à l'entier le plus proche.
+// Une surface nulle ou négative est une erreur : on lance une RangeError.
+export function rendement(kg, surface) {
+  if (surface <= 0) {
+    throw new RangeError("La surface doit être supérieure à 0");
+  }
+  return Math.round(kg / surface);
+}
