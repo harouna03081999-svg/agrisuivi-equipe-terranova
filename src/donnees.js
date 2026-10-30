@@ -26,7 +26,29 @@ export async function chargerDonnees(dossier) {
 export async function lireJson(chemin) {
   throw new Error("TODO Membre 4 : coder lireJson dans src/donnees.js");
 }
+export function creerReleve(parcelle, humiditeTexte, temperatureTexte, date) {
+  const id = String(parcelle ?? "").trim().toUpperCase();
+  if (!id) throw new Error("Parcelle manquante");
 
+  const versNombre = (texte) => {
+    const s = String(texte ?? "").trim().replace(",", ".");
+    return s === "" ? NaN : Number(s);
+  };
+  const humidite = versNombre(humiditeTexte);
+  const temperature = versNombre(temperatureTexte);
+
+  if (!Number.isFinite(humidite) || humidite < 0 || humidite > 100) {
+    throw new Error("Humidité invalide (0 à 100)");
+  }
+  if (!Number.isFinite(temperature)) {
+    throw new Error("Température invalide");
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(date))) {
+    throw new Error("Date invalide (AAAA-MM-JJ)");
+  }
+
+  return { parcelle: id, date, humidite, temperature };
+}
 // Lit les quatre fichiers EN MÊME TEMPS avec Promise.all.
 // Renvoie { parcelles, cultures, releves, recoltes }.
 export async function chargerDonnees(dossier) {
